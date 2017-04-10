@@ -1,0 +1,176 @@
+﻿@using System
+@using System.Collections.Generic
+@using System.Linq
+@using System.Web
+@using System.Web.Mvc
+@using WebMatrix.Data
+@using System.Data.SqlClient
+@using System.Data
+@using System.Configuration
+@using System.Text
+@using GridMvc.Html
+@using System.Web.UI.HtmlControls;
+@using LaborNeedsSchedulingFramework.Models
+
+@model LaborNeedsSchedulingFramework.Models.DataInput
+
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="~/MVCGridHandler.axd/script.js"></script>
+
+    @{
+        ViewData["Title"] = "Home Page";
+    }
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 1100px;
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            table-layout: fixed;
+            word-break: break-all;
+            /*margin-left: auto;
+            margin-right: auto;*/
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+            td:first-child {
+                font-weight: bold;
+                text-align: left;
+            }
+
+        .container {
+            /*position: fixed;*/
+            /*padding-left: 150px;*/
+            align-content: center;
+            margin: 0;
+        }
+
+        .left-element {
+            display: inline;
+            float: left;
+        }
+
+        .right-element {
+            display: inline;
+            float: right;
+            padding-right: 50px;
+        }
+
+        body {
+            padding-left: 200px;
+            padding-top: 70px; 
+        }
+    </style>
+
+</head>
+
+<body>
+
+    @*@{
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem
+            {
+                Text = "Monday1",
+                Value = "monday1check",
+                Selected = true
+
+            });
+
+        }*@
+
+    <br>
+    <br>
+
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="left-element">
+                <label>Weekly Hours: </label>
+                @Html.TextBoxFor(m => m.payRoll)<br>
+                <label>Minimum Employees: </label>
+                @Html.TextBoxFor(m => m.minEmp)<br>
+                <label>Maximum Employees: </label>
+                @Html.TextBoxFor(m => m.maxEmp)<br>
+            </div>
+
+            @*<input type="text" id="payRoll" name="payRoll"><br>
+                <input type="text" id="minEmp" name="minEmp"><br>
+                <input type="text" id="maxEmp" name="maxEmp"><br>*@
+
+            @*@Html.DropDownListFor(model => model.monday1check, listItems, "True")<br>
+
+                @Html.RadioButtonFor(model => model.monday1check, "false", new { id = "no" })
+                @Html.Label("male", "Male")
+
+                @Html.RadioButtonFor(model => model.monday1check, "true", new { id = "yes" })
+                @Html.Label("female", "Female")<br />*@
+
+
+            <div class="right-element">
+                <label>Week Weighting: </label><br />
+                <label>1: </label>
+                @Html.TextBoxFor(m => m.week1Weight)<br>
+                <label>2: </label>
+                @Html.TextBoxFor(m => m.week2Weight)<br>
+                <label>3: </label>
+                @Html.TextBoxFor(m => m.week3Weight)<br>
+                <label>4: </label>
+                @Html.TextBoxFor(m => m.week4Weight)<br>
+                <label>5: </label>
+                @Html.TextBoxFor(m => m.week5Weight)<br>
+                <label>6: </label>
+                @Html.TextBoxFor(m => m.week6Weight)<br>
+
+                <button type="submit">Update</button><br>
+
+            </div>
+
+        </div>
+    }
+
+
+    @*@{
+            ViewBag.Title = "Index";
+        }*@
+
+    <br>
+    <br>
+
+    @*where the table is printed*@
+    <table border="1" cellpadding="5" id="table_id">
+        <thead>
+            <tr>
+                @foreach (DataColumn col in Model.managerTable.Columns)
+                {
+                    <th>@col.Caption</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.managerTable.Rows)
+            {
+                <tr>
+                    @foreach (var cell in row.ItemArray)
+                    {
+                        <td>@cell.ToString()</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+
